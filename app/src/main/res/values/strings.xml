@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Popular Movies Demo</string>
+    <!--TODO: please change the API_KEY if you want to test it. Due to legal restrictions, I put in a fake key -->
+    <string name="apikey">mpa08d6ae578fe7a77e1480d1523d7abca</string>
+</resources>
