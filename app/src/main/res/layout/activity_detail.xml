@@ -12,9 +12,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
         android:id="@+id/Poster"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType ="fitXY"
-        android:adjustViewBounds="true" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/Title"
@@ -39,6 +37,32 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" />
+
+
+    <Button
+        android:id="@+id/PlayTrailer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/PlayTrailer" />
+        <!--android:onClick="onClickPlayTrailer"-->
+    <Button
+        android:id="@+id/AddFavourite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/AddFavourite"
+        android:onClick="onClickAddFavourite"/>
+    <Button
+        android:id="@+id/DeleteFavourite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/DeleteFavourite"
+        android:onClick="onClickDeleteFavourite"/>
+    <TextView
+        android:id="@+id/Review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
 </LinearLayout>
 
 

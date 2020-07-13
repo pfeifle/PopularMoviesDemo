@@ -1,6 +1,4 @@
-//MP-OK
 package com.example.popularmoviesdemo;
-
 
 import android.net.Uri;
 import android.text.TextUtils;
@@ -27,12 +25,12 @@ public class Internet {
     private static String SIZE_PARAM = "w185";
     private static String LOG_TAG = Internet.class.getSimpleName();
 
-    private static URL makeUrl(String stringUrl) throws MalformedURLException {
+    public static URL makeUrl(String stringUrl) throws MalformedURLException {
         URL url = new URL(stringUrl);
         return url;
     }
 
-    private static String makeHttpRequest(URL url) throws IOException {
+    public static String makeHttpRequest(URL url) throws IOException {
         if (url == null) {
             return null;
         }
@@ -88,6 +86,7 @@ public class Internet {
         String s_Description;
         String s_Title;
         String s_ReleaseDate;
+        String s_ID;
         double d_VotingAverage;
 
         JSONObject root = null;
@@ -102,8 +101,9 @@ public class Internet {
                 d_VotingAverage = resultObject.getDouble("vote_average");
                 s_ReleaseDate = resultObject.getString("release_date");
                 s_Title = resultObject.getString("original_title");
+                s_ID = resultObject.getString("id");
                 s_Poster = buildUrl(s_Poster).toString();
-                Movie movie = new Movie(s_Title, s_Poster, s_ReleaseDate, d_VotingAverage, s_Description);
+                Movie movie = new Movie(s_Title, s_Poster, s_ReleaseDate, d_VotingAverage, s_Description,s_ID);
                 movies.add(movie);
             }
         } catch (JSONException | MalformedURLException e) {
@@ -121,5 +121,53 @@ public class Internet {
             Log.e(LOG_TAG, "Throw an Exception in fetchMovieAppData", e);
         }
         return extractMovieData(jsonResponse);
+    }
+
+    public static List<Movie> fetchFavouriteMovieData(String requestUrl) {
+        String jsonResponse = null;
+        try {
+            URL url = makeUrl(requestUrl);
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Throw an Exception in fetchMovieAppData", e);
+        }
+        return extractFavouriteMovieData(jsonResponse);
+    }
+
+    private static List<Movie> extractFavouriteMovieData(String movieJson)  {
+        if (TextUtils.isEmpty(movieJson)) {
+            return null;
+        }
+        List<Movie> movies = new ArrayList<>();
+
+        String s_Poster;
+        String s_Description;
+        String s_Title;
+        String s_ReleaseDate;
+        String s_ID;
+        double d_VotingAverage;
+
+        JSONObject root = null;
+        try {
+            root = new JSONObject(movieJson);
+            JSONArray resultArray = root.getJSONArray("results");
+
+            for (int i = 0; i < resultArray.length(); i++) {
+                JSONObject resultObject = resultArray.getJSONObject(i);
+                s_Poster = resultObject.getString("poster_path");
+                s_Description = resultObject.getString("overview");
+                d_VotingAverage = resultObject.getDouble("vote_average");
+                s_ReleaseDate = resultObject.getString("release_date");
+                s_Title = resultObject.getString("original_title");
+                s_ID = resultObject.getString("id");
+                s_Poster = buildUrl(s_Poster).toString();
+                Movie movie = new Movie(s_Title, s_Poster, s_ReleaseDate, d_VotingAverage, s_Description,s_ID);
+                if (MainActivity.activity.CheckFavourite(s_ID))
+                    movies.add(movie);
+            }
+        } catch (JSONException | MalformedURLException e) {
+            Log.e(LOG_TAG, "Throw an Exception in extractMovieData", e);
+        }
+        return movies;
     }
 }

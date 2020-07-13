@@ -13,4 +13,10 @@
         android:title="sort by popularity"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/favourite"
+        android:orderInCategory="100"
+        android:title="filter favourites"
+        app:showAsAction="never" />
+
 </menu>

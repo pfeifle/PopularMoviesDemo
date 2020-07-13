@@ -7,13 +7,15 @@ public class Movie {
     private String s_Descrption;
     private double d_VotingAverage;
     private String s_PosterUrl;
+    private String s_ID;
 
-    public Movie(String title, String s_PosterUrl, String releaseData, double voteAverage, String descrption) {
+    public Movie(String title, String s_PosterUrl, String releaseData, double voteAverage, String descrption,String id) {
         this.d_VotingAverage = voteAverage;
         this.s_Descrption = descrption;
         this.s_PosterUrl = s_PosterUrl;
         this.s_Title = title;
         this.s_ReleaseData = releaseData;
+        this.s_ID = id;
     }
 
     public Movie(String s_PosterUrl) {
@@ -38,5 +40,9 @@ public class Movie {
 
     public double getVotingAverage() {
         return this.d_VotingAverage;
+    }
+
+    public String getID() {
+        return this.s_ID;
     }
 }
